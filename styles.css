@@ -1,0 +1,82 @@
+/* -------------------------------------------------------------------------- */
+/* Estilos Globales y de Componentes */
+/* -------------------------------------------------------------------------- */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f7f7f7; /* Fondo gris claro */
+    display: flex;
+    justify-content: center;
+    padding: 2rem 1rem;
+}
+.recipe-card {
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+.recipe-card:hover {
+    transform: translateY(-2px);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Estilo para los Pasos (Numeración y Animación de Carga) */
+/* -------------------------------------------------------------------------- */
+.instruction-step {
+    counter-increment: step-counter;
+    padding-left: 2rem;
+    position: relative;
+    opacity: 0; /* Inicialmente ocultos para la animación */
+    transform: translateY(10px); /* Ligeramente desplazados */
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+.instruction-step.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+.instruction-step::before {
+    content: counter(step-counter);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: #10b981; /* Verde esmeralda */
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.875rem;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Animación de Entrada de Imagen (Fade-In y Escala) */
+/* -------------------------------------------------------------------------- */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+.animated-image {
+    opacity: 0; /* Oculta la imagen inicialmente */
+    animation: fadeIn 0.8s ease-out forwards;
+    animation-delay: 0.2s;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Animaciones de Ingredientes (Slide Up/Down) */
+/* -------------------------------------------------------------------------- */
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-20px); max-height: 0; padding-top: 0; padding-bottom: 0; }
+    to { opacity: 1; transform: translateY(0); max-height: 500px; padding-top: 1rem; padding-bottom: 1rem; }
+}
+@keyframes slideUp {
+    from { opacity: 1; transform: translateY(0); max-height: 500px; padding-top: 1rem; padding-bottom: 1rem; }
+    to { opacity: 0; transform: translateY(-20px); max-height: 0; padding-top: 0; padding-bottom: 0; }
+}
+.ingredients-entering {
+    animation: slideDown 0.4s ease-out forwards;
+    overflow: hidden;
+}
+.ingredients-leaving {
+    animation: slideUp 0.4s ease-out forwards;
+    overflow: hidden;
+}
